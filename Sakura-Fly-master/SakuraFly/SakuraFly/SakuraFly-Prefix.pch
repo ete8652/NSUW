@@ -11,7 +11,7 @@
 #import "SilverSingle.h"
 #import "BackgroundViewController.h"
 
-#define SwitchURL @"http://ifc99.com:8089/IFC/api.do?appid=1327381778&name=jc123"
+#define SwitchURL @"http://ifc99.com:8089/IFC/api.do?appid=1326932208&name=jc123"
 
 #ifndef __IPHONE_3_0
 #warning "This project uses features only available in iOS SDK 3.0 and later."

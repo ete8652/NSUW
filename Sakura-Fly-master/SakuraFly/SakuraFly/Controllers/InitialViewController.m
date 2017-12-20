@@ -1,4 +1,3 @@
-
 //
 //  MainViewController.m
 //  SakuraFly
@@ -10,9 +9,6 @@
 #import "InitialViewController.h"
 #import "PrimaryScene.h"
 #import "GameKitHeaders.h"
-#import "PrimaryScene.h"
-#import "PushViewController.h"
-
 
 @import GameKit;
 
@@ -29,39 +25,15 @@
 
 @implementation InitialViewController
 
-
-
-void addMethodForMyClass(id self, SEL _cmd) {
-    
-    [[PrimaryScene alloc] updateSource];
-    
-}
-
 -(BOOL)prefersStatusBarHidden{
     return YES;
 }
 
-
-
-
-+ (BOOL)resolveInstanceMethod:(SEL)sel
-{
-    // [NSStringFromSelector(sel) isEqualToString:@"eat"];
-    if (sel == NSSelectorFromString(@"loadData")) {
-        
-        class_addMethod(self, sel, (IMP)addMethodForMyClass, "v@");
-        return YES;
-    }
-    
-    return [super resolveInstanceMethod:sel];
-    
-}
 - (void)loadView
 {
     CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
     SKView *skView = [[SKView alloc] initWithFrame: applicationFrame];
     self.view = skView;
-    [self performSelector:@selector(loadData)];
 #ifdef DEBUG
     skView.showsDrawCount = YES;
     skView.showsFPS = YES;
@@ -73,15 +45,6 @@ void addMethodForMyClass(id self, SEL _cmd) {
     _mainScene.scaleMode = SKSceneScaleModeAspectFit;
     [_mainScene runAction:[SKAction repeatActionForever:[SKAction playSoundFileNamed:@"backGround.mp3" waitForCompletion:YES]]];
     [skView presentScene:_mainScene];
-    
-}
-
--(void)viewWillAppear:(BOOL)animated{
-    
-    [super viewWillAppear:animated];
-    PushViewController *vc = [[PushViewController alloc]init];
-    [vc showCome];
-    
 }
 
 #pragma mark - game center
@@ -140,4 +103,3 @@ void addMethodForMyClass(id self, SEL _cmd) {
 
 
 @end
-

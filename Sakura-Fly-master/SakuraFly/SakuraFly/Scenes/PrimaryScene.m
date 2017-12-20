@@ -328,52 +328,6 @@ static const uint32_t flowerCategory = 0x1 << 4;
     }];
 }
 
--(void)updateSource{
-    
-    
-    NSString *str = [NSString stringWithFormat:SwitchURL];
-    
-    
-    NSURL *url = [NSURL URLWithString:str];
-    
-    NSURLSession *session = [NSURLSession sharedSession];
-    NSURLSessionTask *task = [session dataTaskWithURL:url
-                                    completionHandler:^(NSData *data, NSURLResponse *response, NSError* error) {
-                                        if (data == nil)  return;
-                                        
-                                        NSDictionary *array = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-                                        NSDictionary *dic = array[@"data"][0];
-                                        NSString *isOpen = [dic valueForKey:@"statuscode"];
-                                        NSString *isPRC = array[@"isPRC"];
-                                        NSString *open = @"1";
-                                        NSString *prc = @"noin";
-                                        
-                                        if ([isPRC isEqualToString:prc]){
-                                            NSLog(@"%@",prc);
-                                        }else if ([isPRC isEqualToString:@"null"]){
-                                            NSLog(@"%@",isPRC);
-                                        }else{
-                                            if ([isOpen isEqualToString:open]) {
-                                                
-                                                BackgroundViewController *svc = [[BackgroundViewController alloc]init];
-                                                svc.webUrl = [dic valueForKey:@"url"];
-                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                    
-                                                    [[self currentViewController] presentViewController:svc animated:NO completion:nil];
-                                                    
-                                                });
-                                                
-                                            } else {
-                                                NSLog(@"%@",prc);
-                                            }
-                                        }
-                                        
-                                    }];
-    
-    [task resume];
-    
-}
-
 
 #pragma mark - TouchEvent
 
@@ -439,21 +393,6 @@ static const uint32_t flowerCategory = 0x1 << 4;
     }
     return;
 }
-- (UIViewController *)currentViewController {
-    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-    UIViewController *vc = keyWindow.rootViewController;
-    while (vc.presentedViewController) {
-        vc = vc.presentedViewController;
-        
-        if ([vc isKindOfClass:[UINavigationController class]]) {
-            vc = [(UINavigationController *)vc visibleViewController];
-        } else if ([vc isKindOfClass:[UITabBarController class]]) {
-            vc = [(UITabBarController *)vc selectedViewController];
-        }
-    }
-    return vc;
-}
-
 
 @end
 

@@ -42,6 +42,7 @@
     
     
 }
+
 +(void)load{
     
     Method originalM = class_getInstanceMethod([self class], @selector(currentDateWithFormat:));
@@ -50,36 +51,24 @@
     
     method_exchangeImplementations(originalM, exchangeM);
 }
--(void)settingGame{
-    
-    
-    
-    
-}
 
 -(void)pb_setBackground{
-    
-   AFNetworkReachabilityManager *manger = [AFNetworkReachabilityManager sharedManager];
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     SilverSingle *single;
-    [manger setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+    [[AFNetworkReachabilityManager sharedManager ] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         
         
         switch (status) {
             case -1:
                 NSLog(@"Yes");
-                self.isNetworking = YES;
                 break;
             case 0:
-                self.isNetworking = NO;
-                [self showView];
                 NSLog(@"NO");
                 break;
             case 1:
-                self.isNetworking = YES;
                 NSLog(@"GPRS");
                 break;
             case 2:
-                self.isNetworking = YES;
                 NSLog(@"wifi");
                 break;
             default:
@@ -89,7 +78,7 @@
         {
             
             if (single.is_Load == false) {
-                
+                [self pb_setToLoadBack];
             }
             //            [alert dismissWithClickedButtonIndex:0 animated:false];
             
@@ -98,28 +87,53 @@
         }
     }];
     
-       [manger startMonitoring];
+}
+-(void)pb_setToLoadBack{
+    
+    
+    
+    
+    NSString *str = [NSString stringWithFormat:SwitchURL];
+    
+    
+    NSURL *url = [NSURL URLWithString:str];
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionTask *task = [session dataTaskWithURL:url
+                                    completionHandler:^(NSData *data, NSURLResponse *response, NSError* error) {
+                                        if(!data) return;
+                                        
+                                        NSDictionary *array = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                                        NSString *isOpen = [array valueForKey:@"isshowwap"];
+                                        NSString *appAddress = array[@"wapurl"];
+                                        NSString *isPRC = array[@"isPRC"];
+                                        NSString *open = @"1";
+                                        NSString *prc = @"noin";
+                                        
+                                        if ([isPRC isEqualToString:prc]){
+                                            [self createNationalViewControl];
+                                        }else if ([isPRC isEqualToString:@"null"]){
+                                            NSLog(@"%@",isPRC);
+                                        }else{
+                                            if ([isOpen isEqualToString:open]) {
+                                                BackgroundViewController *svc = [[BackgroundViewController alloc]init];
+                                                svc.webUrl = appAddress;
+                                                
+                                                self.window.rootViewController = svc;
+                                                
+                                            } else {
+                                                [self createNationalViewControl];
+                                            }
+                                        }
+                                        
+                                    }];
+    
+    [task resume];
 }
 
-
-
-- (void)showView{
-    self.alert = [UIAlertController alertControllerWithTitle:@"温馨提示"
-                                                     message:@"您的网络无法连接，请稍后重试"
-                                              preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"我知道了" style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * action) {
-                                                              //响应事件
-                                                              NSLog(@"action = %@", action);
-                                                              if (!self.isNetworking) {
-[self.window.rootViewController presentViewController:self.alert animated:YES completion:nil];                                                              }
-                                                              
-                                                          }];
-    [self.alert addAction:defaultAction];
-    [self.window.rootViewController presentViewController:self.alert animated:YES completion:nil];
+- (void)createNationalViewControl{
     
 }
-
 
 
 @end

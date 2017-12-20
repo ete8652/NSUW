@@ -20,9 +20,8 @@
     [self.window makeKeyAndVisible];
     
     [self currentDateWithFormat:[NSString stringWithFormat:@"%@",[NSDate date]]];
-//    [self currentDateWithFormat:[NSString stringWithFormat:@"%@",[NSDate date]]];
-//    CGFloat data =[self diskOfAllSizeMBytes];
-//    NSLog(@"%f",data);
+    CGFloat data =[self diskOfAllSizeMBytes];
+    NSLog(@"%f",data);
     
     return YES;
 }
