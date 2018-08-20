@@ -1,10 +1,48 @@
-require("HomeViewController, LotteryViewController, MoneyViewController, MyViewController");
-
-defineClass("JCTabBarController", {
-    addChildViewControllers: function() {
-        self.addChildViewController_title_imageName_selectImageName(HomeViewController.new(), "666", "TabBar_home_23x23_", "TabBar_home_23x23_selected");
-        self.addChildViewController_title_imageName_selectImageName(LotteryViewController.new(), "666", "TabBar_win_23x23_", "TabBar_win_23x23_selected");
-        self.addChildViewController_title_imageName_selectImageName(MoneyViewController.new(), "资金明细", "TabBar_money_23x23_", "TabBar_money_23x23_selected");
-        self.addChildViewController_title_imageName_selectImageName(MyViewController.new(), "我的", "TabBar_my_23x23_", "TabBar_my_23x23_selected");
+defineClass("MyViewController", {
+    dataArray: function() {
+        if (!_dataArray) {
+            _dataArray = [ {
+                imageName: "my_user",
+                type: "0",
+                titleName: "修改了"
+            }, {
+                imageName: "my_exchangePW",
+                type: "1",
+                titleName: "登录密码"
+            }, {
+                imageName: "my_notification",
+                type: "2",
+                titleName: "消息中心"
+            }, {
+                imageName: "my_money",
+                type: "3",
+                titleName: "资金管理"
+            }, {
+                imageName: "my_moneyPW",
+                type: "6",
+                titleName: "取款密码"
+            }, {
+                imageName: "my_bankCard",
+                type: "4",
+                titleName: "银行卡"
+            }, {
+                imageName: "my_today",
+                type: "7",
+                titleName: "今日已结"
+            }, {
+                imageName: "my_story",
+                type: "5",
+                titleName: "下注记录"
+            }, {
+                imageName: "my_kefu",
+                type: "8",
+                titleName: "客服中心"
+            }, {
+                imageName: "my_kefu",
+                type: "9",
+                titleName: "建议反馈"
+            } ];
+        }
+        return _dataArray;
     }
 }, {});
