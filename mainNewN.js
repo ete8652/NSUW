@@ -5,5 +5,3 @@ defineClass("MyViewController", {
         NSLog("可以了");
     }
 }, {});
-
-
