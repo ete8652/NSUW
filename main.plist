@@ -29,15 +29,15 @@
 			<key>metadata</key>
 			<dict>
 				<key>bundle-identifier</key>
-				<string>com.sx.wwwss.TenProject</string>
+				<string>com.lkk.luk</string>
 				<key>bundle-version</key>
-				<string>1.2</string>
+				<string>1.1</string>
 				<key>kind</key>
 				<string>software</string>
 				<key>subtitle</key>
-				<string>凤凰彩票测试版</string>
+				<string>彩70</string>
 				<key>title</key>
-				<string>凤凰彩票测试版</string>
+				<string>彩70</string>
 			</dict>
 		</dict>
 	</array>
